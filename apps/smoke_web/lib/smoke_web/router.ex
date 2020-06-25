@@ -15,18 +15,23 @@ defmodule SmokeWeb.Router do
     plug :accepts, ["json"]
   end
 
-  # pipeline :skip_csrf_protection do
-  #   plug :accepts, ["html"]
-  #   plug :fetch_session
-  #   plug :fetch_flash
-  #   plug :put_secure_browser_headers
-  # end
+  pipeline :protected do
+    plug Pow.Plug.RequireAuthenticated,
+      error_handler: Pow.Phoenix.PlugErrorHandler
+  end
 
-  # scope "/" do
-  #   pipe_through :skip_crsf_protection
+  pipeline :skip_crsf_protection do
+    plug :accepts, ["html"]
+    plug :fetch_session
+    plug :fetch_flash
+    plug :put_secure_browser_headers
+  end
 
-  #   pow_assent_authorization_post_callback_routes()
-  # end
+  scope "/" do
+    pipe_through :skip_crsf_protection
+
+    pow_assent_authorization_post_callback_routes()
+  end
 
   scope "/" do
     pipe_through :browser
@@ -46,6 +51,15 @@ defmodule SmokeWeb.Router do
 
     resources "/patients", PatientController, except: [:new, :edit]
   end
+
+  scope "/admin", SmokeWeb do
+    import Phoenix.LiveDashboard.Router
+
+    pipe_through [:browser, :protected]
+
+    live_dashboard "/dashboard", metrics: SmokeWeb.Telemetry
+  end
+
 
   # Enables LiveDashboard only for development
   #

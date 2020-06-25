@@ -21,5 +21,5 @@ defmodule Patient do
 end
 
 defimpl FhirResource, for: Patient do
-    def toJSON(_patient), do: patientToJSON(_patient)
+    def toJSON(patient), do: Patient.patientToJSON(patient)
 end
