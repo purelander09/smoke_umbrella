@@ -3,7 +3,7 @@ use Mix.Config
 # Configure your database
 config :smoke, Smoke.Repo,
   username: "postgres",
-  password: "postgres",
+  password: "d67b13854d3a4360b4e299f3301a2807",
   database: "smoke_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,

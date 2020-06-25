@@ -40,7 +40,8 @@ defmodule Smoke.MixProject do
       {:ecto_sql, "~> 3.4"},
       {:postgrex, ">= 0.0.0"},
       {:jason, "~> 1.0"},
-      {:pow, "~> 1.0.20"}
+      {:pow, "~> 1.0.20"},
+      {:pow_assent, "~> 0.4.8"}
     ]
   end
 

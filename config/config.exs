@@ -26,7 +26,7 @@ config :smoke_web, SmokeWeb.Endpoint,
   live_view: [signing_salt: "jnAGl8LP"]
 
 # Pow Auth Config
-config :smoke, :pow
+config :smoke, :pow,
   user: Smoke.Users.User,
   repo: Smoke.Repo
 
